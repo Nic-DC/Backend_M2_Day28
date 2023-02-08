@@ -14,18 +14,22 @@ function NavBar() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#about">About</Nav.Link>
-          <Nav.Link href="#services">Services</Nav.Link>
-          <Nav.Link href="#contact">Contact</Nav.Link>
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant={isDarkMode ? "outline-warning" : "outline-dark"}>Search</Button>
         </Form>
-        <NavDropdown title="Settings" id="basic-nav-dropdown">
+        <Button className="ml-2" variant={isDarkMode ? "light" : "warning"} onClick={toggleDarkMode}>
+          {isDarkMode ? "Light Mode" : "Dark Mode"}
+        </Button>
+        <NavDropdown title="Account" id="basic-nav-dropdown">
+          <NavDropdown.Item>
+            <Nav.Link href="/login">Login</Nav.Link>
+          </NavDropdown.Item>
+
           <NavDropdown.Divider />
-          <NavDropdown.Item onClick={toggleDarkMode}>{isDarkMode ? "Light Mode" : "Dark Mode"}</NavDropdown.Item>
         </NavDropdown>
       </Navbar.Collapse>
     </Navbar>
