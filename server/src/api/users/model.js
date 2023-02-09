@@ -7,9 +7,9 @@ const usersSchema = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    username: { type: String, required: true },
+    username: { type: String, required: false },
     email: { type: String, required: true },
-    password: { type: String, required: true },
+    password: { type: String, required: false },
     isRegistered: { type: Boolean, enum: [false, true], default: false },
     role: { type: String, enum: ["User", "Admin"], default: "User" },
     dateOfBirth: { type: Date, required: false },
@@ -19,6 +19,8 @@ const usersSchema = new Schema(
       street: { type: String },
       number: { type: Number },
     },
+    googleID: { type: String, required: false },
+    picture: { type: String, required: false },
   },
   {
     timestamps: true, // this option automatically handles createdAt and updatedAt fields

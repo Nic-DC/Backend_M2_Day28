@@ -1,11 +1,13 @@
 import express from "express";
 import listEndpoints from "express-list-endpoints";
 import cors from "cors";
+import passport from "passport";
 import mongoose from "mongoose";
 import blogPostsRouter from "./api/blogPosts/index.js";
 import authorsRouter from "./api/authors/index.js";
 import usersRouter from "./api/users/index.js";
 import { badRequestHandler, notFoundHandler, genericErrorHandler } from "./errorHandlers.js";
+import googleStrategy from "./lib/auth/googleOAUTH.js";
 
 const server = express();
 const port = process.env.PORT || 3008;
@@ -26,10 +28,12 @@ const corsOpts = {
     }
   },
 };
+passport.use("google", googleStrategy); // Do not forget to inform Passport that we need to use GoogleStrategy!
 
 // ******************************* MIDDLEWARES ****************************************
 server.use(cors(corsOpts));
 server.use(express.json());
+server.use(passport.initialize()); // Do not forget to inform Express that we need to use Passport!
 
 // ******************************** ENDPOINTS *****************************************
 server.use("/blogPosts", blogPostsRouter);
