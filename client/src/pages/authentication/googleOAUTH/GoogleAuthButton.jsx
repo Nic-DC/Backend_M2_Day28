@@ -9,6 +9,7 @@ const GoogleAuthButton = () => {
     // Listen for the redirect from Google
     window.addEventListener("message", (event) => {
       const { accessToken } = event.data;
+      console.log({ accessToken });
       handleGoogleRedirect(accessToken);
     });
 
