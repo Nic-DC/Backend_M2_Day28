@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
 const GoogleAuthButton = () => {
   const [user, setUser] = useState(null);
@@ -33,34 +34,39 @@ const GoogleAuthButton = () => {
       // Store the access token in local storage for future sessions
       localStorage.setItem("googleAccessToken", accessToken);
 
-      // Make an API call to your server to retrieve the user's data using the access token
+      // Make an API call to the server to retrieve the user's data using the access token
       setLoading(true);
-      const response = await fetch("http://localhost:3008/api/user", {
+      const response = await fetch(`http://localhost:3008/users/${accessToken._id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
       const userData = await response.json();
+      console.log("usersData from fetch - USER: ", userData);
 
-      // Use the user's data for whatever purpose you need, for example, to store it in state
+      // set the userData=user & loading=false
       setUser(userData);
       setLoading(false);
     } catch (error) {
-      // Handle the error
       console.log("handleGoogleRedirect function - ERROR: ", error);
     }
   }
 
   return (
     <>
-      {loading ? (
+      <Button variant="warning" className="mt-3" onClick={googleLogin}>
+        Login with Google
+      </Button>
+      {/* {loading ? (
         <p>Loading...</p>
       ) : user ? (
         <p>Hello, {user.name}!</p>
       ) : (
         <button onClick={googleLogin}>Login with Google</button>
-      )}
+      )} */}
     </>
   );
 };
+
+export default GoogleAuthButton;
