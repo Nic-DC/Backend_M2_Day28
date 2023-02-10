@@ -35,7 +35,7 @@ usersRouter.post("/login", async (req, res, next) => {
       const payload = { _id: user._id, role: user.role };
       const accessToken = await createAccessToken(payload);
 
-      res.status(201).send(accessToken);
+      res.status(201).send({ accessToken });
     } else {
       next(createHttpError(401, "Credentials are not ok!"));
     }
